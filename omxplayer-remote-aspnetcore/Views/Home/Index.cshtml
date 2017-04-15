@@ -1,0 +1,13 @@
+﻿@model IEnumerable<Core.Models.Source>
+@{
+    ViewData["Title"] = "List";
+}
+
+<ul>
+    @foreach (var source in Model)
+    {
+        <li>
+            <a href="javascript:;">@source.Title</a>
+        </li>
+    }
+</ul>
