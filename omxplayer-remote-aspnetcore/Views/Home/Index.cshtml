@@ -7,7 +7,16 @@
     @foreach (var source in Model)
     {
         <li>
-            <a href="javascript:;">@source.Title</a>
+            <a class="film" href="javascript:void(0)" data-path="@source.Path">@source.Title</a>
         </li>
     }
 </ul>
+
+@section Scripts
+{
+    <script>
+        $(".film").click(function (event) {
+            $.post("@Url.Action("Play", "OmxPlayer")", { path: this.dataset.path });
+        })
+    </script>
+}

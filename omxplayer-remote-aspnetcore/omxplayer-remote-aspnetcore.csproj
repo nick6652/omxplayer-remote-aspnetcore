@@ -10,6 +10,8 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="1.1.1" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="1.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.0" />
+    
     <PackageReference Include="System.ComponentModel.TypeConverter" Version="4.3.0">
       <IncludeAssets>Analyzers;Build;Compile;ContentFiles;Native</IncludeAssets>
     </PackageReference>

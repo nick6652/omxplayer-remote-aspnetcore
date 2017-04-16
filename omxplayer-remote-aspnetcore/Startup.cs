@@ -1,5 +1,6 @@
 ﻿using Core.Mappers;
 using Core.Models;
+using Core.Players;
 using Core.SourceLists;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,9 +30,13 @@ namespace omxplayer_remote_aspnetcore
             services.AddOptions();
             // Add framework services.
             services.AddMvc();
+
             services.Configure<FileSourceOptions>(Configuration.GetSection("FileSource"));
+            services.Configure<OmxPlayerOptions>(Configuration.GetSection("OmxPlayer"));
+
             services.AddTransient<SourceFactory>();
             services.AddTransient<ISourceList, FileSourceList>();
+            services.AddTransient<OmxPlayer>();
         }
 
 
