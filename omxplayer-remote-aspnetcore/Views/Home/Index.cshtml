@@ -3,20 +3,27 @@
     ViewData["Title"] = "List";
 }
 
-<ul>
-    @foreach (var source in Model)
-    {
-        <li>
-            <a class="film" href="javascript:void(0)" data-path="@source.Path">@source.Title</a>
-        </li>
-    }
-</ul>
+<div class="films">
+    <ul>
+        @foreach (var source in Model)
+        {
+            <li>
+                <a class="film" href="javascript:void(0)" data-path="@source.Path">@source.Title</a>
+            </li>
+        }
+    </ul>
 
-<br />
+    <br />
 
-<button id="stop">Stop</button>
-<br/>
-<button id="pause">Pause</button>
+    <button id="stop">Stop</button>
+    <br/>
+    <button id="pause">Pause</button>    
+</div>
+
+<div class="streams">
+    <input id="stream_url" type="text"/>
+    <button id="play_stream">Play</button>
+</div>
 
 @section Scripts
 {
@@ -27,10 +34,16 @@
 
         $("#stop").click(function(event) {
             $.post("@Url.Action("Stop", "OmxPlayer")");
+            $.post("@Url.Action("Stop", "Livestreamer")");
         });
 
         $("#pause").click(function(event) {
             $.post("@Url.Action("Pause", "OmxPlayer")");
+            $.post("@Url.Action("Pause", "Livestreamer")");
+        });
+
+        $("#play_stream").click(function(event) {
+            $.post("@Url.Action("Play", "Livestreamer")", { path: $("#stream_url").val() });
         });
     </script>
 }

@@ -4,7 +4,7 @@ using Microsoft.Extensions.Options;
 
 namespace Core.Players
 {
-    public class OmxPlayer
+    public class OmxPlayer : IPlayer
     {
         private readonly OmxPlayerOptions _options;
         private Process _process;
@@ -14,16 +14,27 @@ namespace Core.Players
             _options = options.Value;
         }
 
+        protected OmxPlayer()
+        {
+
+        }
+
         public void Play(string path)
         {
             if (_process == null)
             {
-                var processStartInfo = new ProcessStartInfo("omxplayer", string.Join(" ", _options.Arguments, path));
-                processStartInfo.UseShellExecute = false;
-                processStartInfo.RedirectStandardInput = true;
-                _process = Process.Start(processStartInfo);
-                _process.StandardInput.AutoFlush = true;
+                _process = StartProcess(path);
             }
+        }
+
+        public virtual Process StartProcess(string path)
+        {
+            var processStartInfo = new ProcessStartInfo("omxplayer", string.Join(" ", _options.Arguments, path));
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.RedirectStandardInput = true;
+            var process = Process.Start(processStartInfo);
+            process.StandardInput.AutoFlush = true;
+            return process;
         }
 
         public void Pause()
