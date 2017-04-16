@@ -18,29 +18,36 @@ namespace Core.Players
         {
             if (_process == null)
             {
-                _process = Process.Start("omxplayer", string.Join(" ", _options.Arguments, path));
+                var processStartInfo = new ProcessStartInfo("omxplayer", string.Join(" ", _options.Arguments, path));
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.RedirectStandardInput = true;
+                _process = Process.Start(processStartInfo);
+                _process.StandardInput.AutoFlush = true;
             }
         }
 
         public void Pause()
         {
-            if (_process != null)
-            {
-                SendCommand("p");
-            }
+            if (_process == null)
+                return;
+
+            SendCommand('p');
         }
 
         public void Stop()
         {
-            SendCommand("q");
+            if (_process == null)
+                return;
+
+            SendCommand('q');
             _process.WaitForExit();
             _process.Dispose();
             _process = null;
         }
 
-        private void SendCommand(string command)
+        private void SendCommand(char command)
         {
-            _process.StandardInput.WriteLine(command);
+            _process.StandardInput.Write(command);
         }
     }
 }

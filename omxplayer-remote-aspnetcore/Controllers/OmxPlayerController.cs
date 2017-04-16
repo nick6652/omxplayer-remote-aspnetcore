@@ -14,19 +14,19 @@ namespace omxplayer_remote_aspnetcore.Controllers
             _omxPlayer = omxPlayer;
         }
 
-        [HttpPost, Route("/play")]
+        [HttpPost, Route("play")]
         public void Play(string path)
         {
             _omxPlayer.Play(path);
         }
 
-        [HttpPost, Route("/pause")]
+        [HttpPost, Route("pause")]
         public void Pause()
         {
             _omxPlayer.Pause();
         }
 
-        [HttpPost, Route("/stop")]
+        [HttpPost, Route("stop")]
         public void Stop()
         {
             _omxPlayer.Stop();

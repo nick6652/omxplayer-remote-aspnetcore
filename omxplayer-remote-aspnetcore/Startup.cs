@@ -36,7 +36,7 @@ namespace omxplayer_remote_aspnetcore
 
             services.AddTransient<SourceFactory>();
             services.AddTransient<ISourceList, FileSourceList>();
-            services.AddTransient<OmxPlayer>();
+            services.AddSingleton<OmxPlayer>();
         }
 
 

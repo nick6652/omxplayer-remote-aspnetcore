@@ -12,11 +12,25 @@
     }
 </ul>
 
+<br />
+
+<button id="stop">Stop</button>
+<br/>
+<button id="pause">Pause</button>
+
 @section Scripts
 {
     <script>
         $(".film").click(function (event) {
             $.post("@Url.Action("Play", "OmxPlayer")", { path: this.dataset.path });
         })
+
+        $("#stop").click(function(event) {
+            $.post("@Url.Action("Stop", "OmxPlayer")");
+        });
+
+        $("#pause").click(function(event) {
+            $.post("@Url.Action("Pause", "OmxPlayer")");
+        });
     </script>
 }
