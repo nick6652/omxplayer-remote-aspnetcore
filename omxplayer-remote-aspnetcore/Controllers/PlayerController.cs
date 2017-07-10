@@ -1,4 +1,5 @@
-﻿using Core.Players;
+﻿using Core.Models;
+using Core.Players;
 using Microsoft.AspNetCore.Mvc;
 
 namespace omxplayer_remote_aspnetcore.Controllers
@@ -13,9 +14,9 @@ namespace omxplayer_remote_aspnetcore.Controllers
         }
 
         [HttpPost, Route("play")]
-        public void Play(string path)
+        public void Play([FromBody] PlayParameters parameters)
         {
-            _player.Play(path);
+            _player.Play(parameters.Path);
         }
 
         [HttpPost, Route("pause")]

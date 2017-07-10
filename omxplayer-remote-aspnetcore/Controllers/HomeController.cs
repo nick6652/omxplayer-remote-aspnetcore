@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -16,9 +16,9 @@ namespace omxplayer_remote_aspnetcore.Controllers
             _sourceList = sourceList;
         }
 
-        public IActionResult Index()
+        public IActionResult GetSource()
         {
-            return View(_sourceList.Get());
+            return Json(_sourceList.Get());
         }
 
         public IActionResult Error()
