@@ -29,7 +29,7 @@ namespace Core.Players
 
         public virtual Process StartProcess(string path)
         {
-            var processStartInfo = new ProcessStartInfo("omxplayer", string.Join(" ", _options.Arguments, path));
+            var processStartInfo = new ProcessStartInfo("omxplayer", string.Join(" ", _options.Arguments, $"\"{path}\""));
             processStartInfo.UseShellExecute = false;
             processStartInfo.RedirectStandardInput = true;
             var process = Process.Start(processStartInfo);
