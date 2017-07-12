@@ -49,11 +49,20 @@ namespace Core.Players
         {
             if (_process == null)
                 return;
+            try
+            {
+                SendCommand('q');
+                _process.WaitForExit();
+                _process.Dispose();
+            }
+            catch (System.Exception)
+            {
 
-            SendCommand('q');
-            _process.WaitForExit();
-            _process.Dispose();
-            _process = null;
+            }
+            finally
+            {
+                _process = null;
+            }
         }
 
         private void SendCommand(char command)
