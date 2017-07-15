@@ -14,6 +14,11 @@
       <h1>Streams</h1>
       <input id="stream" type="text" />
       <button v-on:click="playStream">Play</button>
+      <ul>
+        <li v-for="stream in recentStreams">
+          <a href="javascript:void(0);" :data-path="stream.path" v-on:click="livestreamerPlay($event, stream.path)">{{stream.title}}</a>
+        </li>
+      </ul>
     </div>
   </div>
 </template>
@@ -24,17 +29,40 @@ export default {
   data () {
     return {
       msg: 'Welcome to Your Vue.js App',
-      films: {}
+      films: {},
+      recentStreams: {}
     }
   },
   methods: {
+    updateFilms: function () {
+      this.$http
+        .get('/api/source/films')
+        .then((res) => {
+          this.films = res.body
+        })
+        .catch((ex) => console.log(ex))
+    },
+    updateRecentStreams: function () {
+      this.$http
+        .get('/api/source/recentstreams')
+        .then((res) => {
+          this.recentStreams = res.body
+        })
+        .catch((ex) => console.log(ex))
+    },
     open: function (event) {
       this.$http
         .post('/api/omxplayer/play', { path: event.target.dataset.path })
     },
-    playStream: function (event) {
+    livestreamerPlay: function (event, url) {
       this.$http
-        .post('/api/livestreamer/play', { path: document.getElementById('stream').value })
+        .post('/api/livestreamer/play', { path: url })
+        .then(() => {
+          this.updateRecentStreams()
+        })
+    },
+    playStream: function (event) {
+      this.livestreamerPlay(event, document.getElementById('stream').value)
     },
     stop: function (event) {
       this.$http
@@ -50,12 +78,8 @@ export default {
     }
   },
   created () {
-    this.$http
-      .get('/api/home/getsource')
-      .then((res) => {
-        this.films = res.body
-      })
-      .catch((ex) => console.log(ex))
+    this.updateFilms()
+    this.updateRecentStreams()
   }
 }
 </script>

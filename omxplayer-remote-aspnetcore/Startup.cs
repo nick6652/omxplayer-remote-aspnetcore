@@ -35,8 +35,10 @@ namespace omxplayer_remote_aspnetcore
       services.Configure<FileSourceOptions>(Configuration.GetSection("FileSource"));
       services.Configure<OmxPlayerOptions>(Configuration.GetSection("OmxPlayer"));
 
-      services.AddTransient<SourceFactory>();
-      services.AddTransient<ISourceList, FileSourceList>();
+      services.AddTransient<UrlSourceFactory>();
+      services.AddTransient<FileSourceFactory>();
+      services.AddTransient<FileSourceList>();
+      services.AddTransient<RecentSourceList>();
       services.AddSingleton<OmxPlayer>();
       services.AddSingleton<LivestreamerPlayer>();
     }

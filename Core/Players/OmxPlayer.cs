@@ -19,7 +19,7 @@ namespace Core.Players
 
         }
 
-        public void Play(string path)
+        public virtual void Play(string path)
         {
             if (_process == null)
             {

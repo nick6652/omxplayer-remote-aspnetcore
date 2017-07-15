@@ -10,9 +10,9 @@ namespace Core.SourceLists
     public class FileSourceList : ISourceList
     {
         private readonly FileSourceOptions _options;
-        private readonly SourceFactory _sourceFactory;
+        private readonly ISourceFactory _sourceFactory;
 
-        public FileSourceList(IOptions<FileSourceOptions> options, SourceFactory sourceFactory)
+        public FileSourceList(IOptions<FileSourceOptions> options, FileSourceFactory sourceFactory)
         {
             _options = options.Value;
             _sourceFactory = sourceFactory;

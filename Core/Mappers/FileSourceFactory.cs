@@ -3,7 +3,7 @@ using Core.Models;
 
 namespace Core.Mappers
 {
-    public class SourceFactory
+    public class FileSourceFactory: ISourceFactory
     {
         public Source CreateSource(string path)
         {
